@@ -38,6 +38,9 @@ final class NotificationManager {
                     print(error.localizedDescription)
                 }
             }
+            print("Notification has registered")
+        } else {
+            print("This task had finished")
         }
     }
     
@@ -60,5 +63,22 @@ final class NotificationManager {
     
     func removeAllNotification() {
         userNotiCenter.removeAllPendingNotificationRequests()
+    }
+    
+    func requestNotification(seconds: Double) {
+        let notiContent = UNMutableNotificationContent()
+        notiContent.title = "Notification Text"
+        notiContent.body = "Notification Body is full!"
+        notiContent.userInfo = ["targetScene": "splash"]
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: seconds, repeats: false)
+        
+        let request = UNNotificationRequest(identifier: UUID().uuidString, content: notiContent, trigger: trigger)
+        
+        userNotiCenter.add(request) { error in
+            if let error = error {
+                print(error.localizedDescription)
+            }
+        }
     }
 }

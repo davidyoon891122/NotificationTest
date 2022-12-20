@@ -30,6 +30,10 @@ final class MainViewController: UIViewController {
         return collectionView
     }()
     
+    private let displayView = NotificationDisplayView()
+    
+    private let viewModel: MainViewModelType = MainViewModel()
+    
     private var disposeBag = DisposeBag()
     
     private var tasks: [TaskModel] = [] {
@@ -43,15 +47,13 @@ final class MainViewController: UIViewController {
         configureNavigation()
         setupViews()
         bindUI()
+        bindViewModel()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         NotificationManager.shared.requestAuthNoti()
-        NotificationManager.shared.getAllNotifications { notifications in
-            print("Registered Notifications: \(notifications)")
-        }
-        
+        viewModel.inputs.getNotifications()
     }
 }
 
@@ -61,6 +63,7 @@ extension MainViewController: TaskCollectionViewCellDelegate {
         var task = tasks[index]
         task.isDone = !task.isDone
         tasks[index] = task
+        NotificationManager.shared.requestNotification(seconds: 3.0)
     }
 }
 
@@ -110,6 +113,7 @@ private extension MainViewController {
     func setupViews() {
         [
             taskView,
+            displayView,
             taskCollectionView
         ]
             .forEach {
@@ -123,8 +127,15 @@ private extension MainViewController {
             $0.trailing.equalToSuperview().offset(-offset)
         }
         
-        taskCollectionView.snp.makeConstraints {
+        displayView.snp.makeConstraints {
             $0.top.equalTo(taskView.snp.bottom).offset(offset)
+            $0.leading.equalToSuperview().offset(offset)
+            $0.trailing.equalToSuperview().offset(-offset)
+            $0.height.equalTo(30.0)
+        }
+        
+        taskCollectionView.snp.makeConstraints {
+            $0.top.equalTo(displayView.snp.bottom).offset(offset)
             $0.leading.equalToSuperview().offset(offset)
             $0.trailing.equalToSuperview().offset(-offset)
             $0.bottom.equalToSuperview().offset(-offset)
@@ -150,8 +161,20 @@ private extension MainViewController {
                 )
                 self.tasks.append(task)
                 NotificationManager.shared.requestSendNoti(task: task)
+                self.viewModel.inputs.getNotifications()
             })
             .disposed(by: disposeBag)
         
+    }
+    
+    func bindViewModel() {
+        viewModel.outputs.notificationPublishSubject
+            .subscribe(onNext: { [weak self] notifications in
+                guard let self = self else { return }
+                DispatchQueue.main.async {
+                    self.displayView.setNotiCountToLabel(count: notifications.count)
+                }
+            })
+            .disposed(by: disposeBag)
     }
 }

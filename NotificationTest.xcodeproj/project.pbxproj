@@ -15,6 +15,8 @@
 		491F773129513CAC00135A66 /* TaskCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491F773029513CAC00135A66 /* TaskCollectionViewCell.swift */; };
 		491F77332951455400135A66 /* TaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491F77322951455400135A66 /* TaskModel.swift */; };
 		491F7736295170EA00135A66 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491F7735295170EA00135A66 /* NotificationManager.swift */; };
+		491F7738295181B800135A66 /* NotificationDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491F7737295181B800135A66 /* NotificationDisplayView.swift */; };
+		491F773A295185FB00135A66 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491F7739295185FB00135A66 /* MainViewModel.swift */; };
 		4999574F2951261200B056A1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4999574E2951261200B056A1 /* AppDelegate.swift */; };
 		499957512951261200B056A1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499957502951261200B056A1 /* SceneDelegate.swift */; };
 		499957532951261200B056A1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499957522951261200B056A1 /* ViewController.swift */; };
@@ -28,6 +30,8 @@
 		491F773029513CAC00135A66 /* TaskCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCollectionViewCell.swift; sourceTree = "<group>"; };
 		491F77322951455400135A66 /* TaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskModel.swift; sourceTree = "<group>"; };
 		491F7735295170EA00135A66 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		491F7737295181B800135A66 /* NotificationDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationDisplayView.swift; sourceTree = "<group>"; };
+		491F7739295185FB00135A66 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		4999574B2951261200B056A1 /* NotificationTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NotificationTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4999574E2951261200B056A1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		499957502951261200B056A1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -75,6 +79,8 @@
 				491F772429512B0A00135A66 /* MainViewController.swift */,
 				491F772629512C7900135A66 /* TaskView.swift */,
 				491F773029513CAC00135A66 /* TaskCollectionViewCell.swift */,
+				491F7737295181B800135A66 /* NotificationDisplayView.swift */,
+				491F7739295185FB00135A66 /* MainViewModel.swift */,
 			);
 			path = MainView;
 			sourceTree = "<group>";
@@ -201,7 +207,9 @@
 				499957512951261200B056A1 /* SceneDelegate.swift in Sources */,
 				491F773129513CAC00135A66 /* TaskCollectionViewCell.swift in Sources */,
 				491F772729512C7900135A66 /* TaskView.swift in Sources */,
+				491F773A295185FB00135A66 /* MainViewModel.swift in Sources */,
 				491F772529512B0A00135A66 /* MainViewController.swift in Sources */,
+				491F7738295181B800135A66 /* NotificationDisplayView.swift in Sources */,
 				491F7736295170EA00135A66 /* NotificationManager.swift in Sources */,
 				491F77332951455400135A66 /* TaskModel.swift in Sources */,
 			);
