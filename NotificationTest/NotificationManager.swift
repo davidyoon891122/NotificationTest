@@ -51,10 +51,10 @@ final class NotificationManager {
         })
     }
     
-    func getAllNotifications() {
+    func getAllNotifications(completion: @escaping ([String]) -> Void) {
         userNotiCenter.getPendingNotificationRequests(completionHandler: { requests in
             let notificationIdentifiers = requests.map { $0.identifier }
-            print(notificationIdentifiers)
+            completion(notificationIdentifiers)
         })
     }
     

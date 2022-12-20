@@ -48,6 +48,10 @@ final class MainViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         NotificationManager.shared.requestAuthNoti()
+        NotificationManager.shared.getAllNotifications { notifications in
+            print("Registered Notifications: \(notifications)")
+        }
+        
     }
 }
 
@@ -140,7 +144,7 @@ private extension MainViewController {
                 guard let taskTitle = self.taskView.getValueFromTextField() else { return }
                 let task = TaskModel(uuid: UUID().uuidString, title: taskTitle, pubDate: Date(), isDone: false)
                 self.tasks.append(task)
-                self.taskCollectionView.reloadData()
+                NotificationManager.shared.requestSendNoti(task: task)
             })
             .disposed(by: disposeBag)
         
