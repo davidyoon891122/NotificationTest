@@ -33,7 +33,11 @@ final class MainViewController: UIViewController {
     private var tasks: [TaskModel] = [
         TaskModel(uuid: UUID().uuidString, title: "Sample", pubDate: Date(), isDone: true),
         TaskModel(uuid: UUID().uuidString, title: "Example", pubDate: Date(), isDone: false)
-    ]
+    ] {
+        didSet {
+            self.taskCollectionView.reloadData()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,8 +70,20 @@ extension MainViewController: UICollectionViewDataSource {
         ) as? TaskCollectionViewCell else { return UICollectionViewCell() }
         
         let task = tasks[indexPath.item]
+        
+        cell.setButtonTag(tag: indexPath.item)
 
         cell.setupCell(task: task)
+        
+        cell.doneButtonTap
+            .asDriver()
+            .drive(onNext: { [weak self] in
+                guard let self = self else { return }
+                var task = self.tasks[cell.doneButtonTag]
+                task.isDone = !task.isDone
+                self.tasks[cell.doneButtonTag] = task
+            })
+            .disposed(by: disposeBag)
         
         return cell
     }

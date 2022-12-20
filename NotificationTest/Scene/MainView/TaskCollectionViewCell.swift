@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import RxCocoa
 
 final class TaskCollectionViewCell: UICollectionViewCell {
     static let identifier = "TaskCollectionViewCell"
@@ -47,6 +48,13 @@ final class TaskCollectionViewCell: UICollectionViewCell {
         return button
     }()
     
+    var doneButtonTap: ControlEvent<Void> {
+        doneButton.rx.tap
+    }
+    
+    var doneButtonTag: Int {
+        doneButton.tag
+    }
     
     func setupCell(task: TaskModel) {
         titleLabel.text = task.title
@@ -60,6 +68,10 @@ final class TaskCollectionViewCell: UICollectionViewCell {
             doneImageView.image = UIImage(systemName: "xmark")
         }
         setupViews()
+    }
+    
+    func setButtonTag(tag: Int) {
+        doneButton.tag = tag
     }
 }
 
