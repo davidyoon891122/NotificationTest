@@ -45,6 +45,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		491F772D29513C4100135A66 /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				499957522951261200B056A1 /* ViewController.swift */,
+				491F772F29513C6300135A66 /* MainView */,
+			);
+			path = Scene;
+			sourceTree = "<group>";
+		};
+		491F772E29513C5000135A66 /* Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				4999574E2951261200B056A1 /* AppDelegate.swift */,
+				499957502951261200B056A1 /* SceneDelegate.swift */,
+			);
+			path = Delegate;
+			sourceTree = "<group>";
+		};
+		491F772F29513C6300135A66 /* MainView */ = {
+			isa = PBXGroup;
+			children = (
+				491F772429512B0A00135A66 /* MainViewController.swift */,
+				491F772629512C7900135A66 /* TaskView.swift */,
+			);
+			path = MainView;
+			sourceTree = "<group>";
+		};
 		499957422951261200B056A1 = {
 			isa = PBXGroup;
 			children = (
@@ -64,14 +91,11 @@
 		4999574D2951261200B056A1 /* NotificationTest */ = {
 			isa = PBXGroup;
 			children = (
-				4999574E2951261200B056A1 /* AppDelegate.swift */,
-				499957502951261200B056A1 /* SceneDelegate.swift */,
-				499957522951261200B056A1 /* ViewController.swift */,
+				491F772E29513C5000135A66 /* Delegate */,
+				491F772D29513C4100135A66 /* Scene */,
 				499957572951261500B056A1 /* Assets.xcassets */,
 				499957592951261500B056A1 /* LaunchScreen.storyboard */,
 				4999575C2951261500B056A1 /* Info.plist */,
-				491F772429512B0A00135A66 /* MainViewController.swift */,
-				491F772629512C7900135A66 /* TaskView.swift */,
 			);
 			path = NotificationTest;
 			sourceTree = "<group>";
