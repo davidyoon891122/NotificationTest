@@ -8,6 +8,7 @@
 import Foundation
 
 struct TaskModel {
+    let uuid: String
     let title: String
     let pubDate: Date
     let isDone: Bool

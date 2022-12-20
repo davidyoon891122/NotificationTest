@@ -77,6 +77,14 @@
 			path = MainView;
 			sourceTree = "<group>";
 		};
+		491F773429515ED400135A66 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				491F77322951455400135A66 /* TaskModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		499957422951261200B056A1 = {
 			isa = PBXGroup;
 			children = (
@@ -98,10 +106,10 @@
 			children = (
 				491F772E29513C5000135A66 /* Delegate */,
 				491F772D29513C4100135A66 /* Scene */,
+				491F773429515ED400135A66 /* Model */,
 				499957572951261500B056A1 /* Assets.xcassets */,
 				499957592951261500B056A1 /* LaunchScreen.storyboard */,
 				4999575C2951261500B056A1 /* Info.plist */,
-				491F77322951455400135A66 /* TaskModel.swift */,
 			);
 			path = NotificationTest;
 			sourceTree = "<group>";

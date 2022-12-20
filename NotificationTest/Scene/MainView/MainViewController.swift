@@ -31,8 +31,8 @@ final class MainViewController: UIViewController {
     private var disposeBag = DisposeBag()
     
     private var tasks: [TaskModel] = [
-        TaskModel(title: "Sample", pubDate: Date(), isDone: true),
-        TaskModel(title: "Example", pubDate: Date(), isDone: false)
+        TaskModel(uuid: UUID().uuidString, title: "Sample", pubDate: Date(), isDone: true),
+        TaskModel(uuid: UUID().uuidString, title: "Example", pubDate: Date(), isDone: false)
     ]
     
     override func viewDidLoad() {
@@ -123,9 +123,10 @@ private extension MainViewController {
             .asDriver()
             .drive(onNext: { [weak self] in
                 guard let self = self else { return }
-                guard let task = self.taskView.getValueFromTextField() else { return }
-                
-                print("Add the task: \(task)")
+                guard let taskTitle = self.taskView.getValueFromTextField() else { return }
+                let task = TaskModel(uuid: UUID().uuidString, title: taskTitle, pubDate: Date(), isDone: false)
+                self.tasks.append(task)
+                self.taskCollectionView.reloadData()
             })
             .disposed(by: disposeBag)
         
