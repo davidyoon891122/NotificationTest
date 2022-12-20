@@ -106,8 +106,8 @@ private extension TaskView {
         
         datePicker.snp.makeConstraints {
             $0.top.equalTo(taskTextField.snp.bottom).offset(offset)
-            $0.leading.equalToSuperview()
-            $0.trailing.equalToSuperview()
+            $0.leading.equalToSuperview().offset(offset)
+            $0.trailing.equalToSuperview().offset(-offset)
             $0.bottom.equalToSuperview().offset(-offset)
         }
     }
