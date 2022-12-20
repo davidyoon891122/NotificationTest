@@ -52,6 +52,15 @@ final class MainViewController: UIViewController {
     }
 }
 
+extension MainViewController: TaskCollectionViewCellDelegate {
+    func didTapDoneButton(index: Int) {
+        print("didTapDoneButton")
+        var task = tasks[index]
+        task.isDone = !task.isDone
+        tasks[index] = task
+    }
+}
+
 extension MainViewController: UICollectionViewDataSource {
     func collectionView(
         _ collectionView: UICollectionView,
@@ -70,20 +79,10 @@ extension MainViewController: UICollectionViewDataSource {
         ) as? TaskCollectionViewCell else { return UICollectionViewCell() }
         
         let task = tasks[indexPath.item]
-        
-        cell.setButtonTag(tag: indexPath.item)
+        cell.delegate = self
 
-        cell.setupCell(task: task)
+        cell.setupCell(task: task, index: indexPath.item)
         
-        cell.doneButtonTap
-            .asDriver()
-            .drive(onNext: { [weak self] in
-                guard let self = self else { return }
-                var task = self.tasks[cell.doneButtonTag]
-                task.isDone = !task.isDone
-                self.tasks[cell.doneButtonTag] = task
-            })
-            .disposed(by: disposeBag)
         
         return cell
     }

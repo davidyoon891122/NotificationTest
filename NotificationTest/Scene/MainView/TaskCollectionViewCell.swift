@@ -7,7 +7,12 @@
 
 import UIKit
 import SnapKit
+import RxSwift
 import RxCocoa
+
+protocol TaskCollectionViewCellDelegate: AnyObject {
+    func didTapDoneButton(index: Int)
+}
 
 final class TaskCollectionViewCell: UICollectionViewCell {
     static let identifier = "TaskCollectionViewCell"
@@ -48,15 +53,13 @@ final class TaskCollectionViewCell: UICollectionViewCell {
         return button
     }()
     
-    var doneButtonTap: ControlEvent<Void> {
-        doneButton.rx.tap
-    }
+    private var disposeBag = DisposeBag()
     
-    var doneButtonTag: Int {
-        doneButton.tag
-    }
+    weak var delegate: TaskCollectionViewCellDelegate?
     
-    func setupCell(task: TaskModel) {
+    var index: Int?
+    
+    func setupCell(task: TaskModel, index: Int) {
         titleLabel.text = task.title
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd "
@@ -67,11 +70,14 @@ final class TaskCollectionViewCell: UICollectionViewCell {
         } else {
             doneImageView.image = UIImage(systemName: "xmark")
         }
+        
+        self.index = index
         setupViews()
+        bindUI()
     }
     
-    func setButtonTag(tag: Int) {
-        doneButton.tag = tag
+    override func prepareForReuse() {
+        disposeBag = DisposeBag()
     }
 }
 
@@ -111,5 +117,18 @@ private extension TaskCollectionViewCell {
             $0.trailing.equalToSuperview()
             $0.bottom.equalToSuperview()
         }
+    }
+    
+    
+    func bindUI() {
+        doneButton.rx.tap
+            .asDriver()
+            .drive(onNext: { [weak self] in
+                guard let self = self,
+                      let index = self.index
+                else { return }
+                self.delegate?.didTapDoneButton(index: index)
+            })
+            .disposed(by: disposeBag)
     }
 }
