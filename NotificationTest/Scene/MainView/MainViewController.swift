@@ -55,6 +55,10 @@ final class MainViewController: UIViewController {
         NotificationManager.shared.requestAuthNoti()
         viewModel.inputs.getNotifications()
     }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
 }
 
 extension MainViewController: TaskCollectionViewCellDelegate {
@@ -63,7 +67,12 @@ extension MainViewController: TaskCollectionViewCellDelegate {
         var task = tasks[index]
         task.isDone = !task.isDone
         tasks[index] = task
-        NotificationManager.shared.requestNotification(seconds: 3.0)
+        if task.isDone {
+            NotificationManager.shared.removePendingNotificationByUUID(uuid: task.uuid)
+        } else {
+            NotificationManager.shared.requestSendNoti(task: task)
+        }
+        viewModel.inputs.getNotifications()
     }
 }
 
