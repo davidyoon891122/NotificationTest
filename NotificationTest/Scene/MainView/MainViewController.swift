@@ -63,16 +63,22 @@ final class MainViewController: UIViewController {
 
 extension MainViewController: TaskCollectionViewCellDelegate {
     func didTapDoneButton(index: Int) {
-        print("didTapDoneButton")
         var task = tasks[index]
         task.isDone = !task.isDone
         tasks[index] = task
+
         if task.isDone {
             NotificationManager.shared.removePendingNotificationByUUID(uuid: task.uuid)
         } else {
             NotificationManager.shared.requestSendNoti(task: task)
         }
         viewModel.inputs.getNotifications()
+    }
+    
+    func didTapRemoveButton(index: Int) {
+        let removedTask = tasks[index]
+        NotificationManager.shared.removePendingNotificationByUUID(uuid: removedTask.uuid)
+        tasks.remove(at: index)
     }
 }
 
@@ -153,6 +159,15 @@ private extension MainViewController {
     
     func configureNavigation() {
         navigationItem.title = "Main"
+        
+        let removeButton = UIBarButtonItem(
+            image: UIImage(systemName: "trash"),
+            style: .plain,
+            target: self,
+            action: #selector(didTapTrashButton)
+        )
+        
+        navigationItem.rightBarButtonItem = removeButton
     }
     
     
@@ -162,6 +177,10 @@ private extension MainViewController {
             .drive(onNext: { [weak self] in
                 guard let self = self else { return }
                 guard let taskTitle = self.taskView.getValueFromTextField() else { return }
+                
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+                print(dateFormatter.string(from: self.taskView.getDateFromPicker()))
                 let task = TaskModel(
                     uuid: UUID().uuidString,
                     title: taskTitle,
@@ -185,5 +204,12 @@ private extension MainViewController {
                 }
             })
             .disposed(by: disposeBag)
+    }
+    
+    @objc
+    func didTapTrashButton() {
+        print("removeAllNotification")
+        NotificationManager.shared.removeAllNotification()
+        viewModel.inputs.getNotifications()
     }
 }

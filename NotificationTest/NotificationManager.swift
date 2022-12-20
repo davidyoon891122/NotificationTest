@@ -27,6 +27,10 @@ final class NotificationManager {
         notiContent.body = task.title
         notiContent.userInfo = ["targetScene": "MainViewController"]
         
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        print("requestSendNoti \(dateFormatter.string(from: task.pubDate))")
+        
         let dateCompoenets = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: task.pubDate)
         
         if task.pubDate > Date() {
@@ -52,6 +56,10 @@ final class NotificationManager {
             }
             
         })
+    }
+    
+    func removeDeliveredNotificationByUUID(uuid: String) {
+        userNotiCenter.removeDeliveredNotifications(withIdentifiers: [uuid])
     }
     
     func getAllNotifications(completion: @escaping ([String]) -> Void) {

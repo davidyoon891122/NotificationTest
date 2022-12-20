@@ -12,10 +12,22 @@ import RxCocoa
 
 protocol TaskCollectionViewCellDelegate: AnyObject {
     func didTapDoneButton(index: Int)
+    func didTapRemoveButton(index: Int)
 }
 
 final class TaskCollectionViewCell: UICollectionViewCell {
     static let identifier = "TaskCollectionViewCell"
+    
+    private lazy var deleteButton: UIButton = {
+        let button = UIButton()
+        
+        button.setImage(UIImage(systemName: "minus.circle"), for: .normal)
+        button.tintColor = .red
+        button.layer.cornerRadius = 10.0
+        button.layer.masksToBounds = true
+        
+        return button
+    }()
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -85,6 +97,7 @@ final class TaskCollectionViewCell: UICollectionViewCell {
 private extension TaskCollectionViewCell {
     func setupViews() {
         [
+            deleteButton,
             doneImageView,
             titleLabel,
             pubDateLabel,
@@ -95,8 +108,15 @@ private extension TaskCollectionViewCell {
             }
         
         let offset: CGFloat = 16.0
-        doneImageView.snp.makeConstraints {
+        
+        deleteButton.snp.makeConstraints {
             $0.leading.equalToSuperview()
+            $0.width.height.equalTo(20.0)
+            $0.centerY.equalTo(doneImageView)
+        }
+        
+        doneImageView.snp.makeConstraints {
+            $0.leading.equalTo(deleteButton.snp.trailing).offset(offset)
             $0.width.height.equalTo(20.0)
             $0.centerY.equalTo(titleLabel)
         }
@@ -129,6 +149,18 @@ private extension TaskCollectionViewCell {
                       let index = self.index
                 else { return }
                 self.delegate?.didTapDoneButton(index: index)
+            })
+            .disposed(by: disposeBag)
+        
+        
+        deleteButton.rx.tap
+            .asDriver()
+            .drive(onNext: { [weak self] in
+                guard let self = self,
+                      let index = self.index
+                else { return }
+                self.delegate?.didTapRemoveButton(index: index)
+                
             })
             .disposed(by: disposeBag)
     }
