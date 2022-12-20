@@ -37,6 +37,12 @@ final class TaskView: UIView {
         return button
     }()
     
+    private lazy var datePicker: UIDatePicker = {
+        let datePicker = UIDatePicker()
+        
+        return datePicker
+    }()
+    
     init() {
         super.init(frame: .zero)
         setupViews()
@@ -64,7 +70,8 @@ private extension TaskView {
         [
             taskLabel,
             taskTextField,
-            addButton
+            addButton,
+            datePicker
         ]
             .forEach {
                 addSubview($0)
@@ -85,12 +92,19 @@ private extension TaskView {
         }
         
         addButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        
         addButton.snp.makeConstraints {
             $0.top.equalToSuperview()
             $0.trailing.equalToSuperview()
             $0.height.equalTo(50.0)
             $0.width.equalTo(65.0)
-            $0.bottom.equalToSuperview()
+        }
+        
+        datePicker.snp.makeConstraints {
+            $0.top.equalTo(taskTextField.snp.bottom).offset(offset)
+            $0.leading.equalToSuperview()
+            $0.trailing.equalToSuperview()
+            $0.bottom.equalToSuperview().offset(-offset)
         }
     }
 }
