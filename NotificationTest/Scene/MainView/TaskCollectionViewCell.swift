@@ -29,8 +29,8 @@ final class TaskCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.textColor = .label
         label.text = ""
-        label.font = .systemFont(ofSize: 14.0)
-        
+        label.font = .systemFont(ofSize: 12.0)
+        label.numberOfLines = 2
         return label
     }()
     
@@ -62,7 +62,7 @@ final class TaskCollectionViewCell: UICollectionViewCell {
     func setupCell(task: TaskModel, index: Int) {
         titleLabel.text = task.title
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd "
+        dateFormatter.dateFormat = "yyyy-MM-dd\nHH:mm:ss "
         pubDateLabel.text = dateFormatter.string(from: task.pubDate)
         
         if task.isDone {
