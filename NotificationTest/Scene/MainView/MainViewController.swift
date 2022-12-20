@@ -25,6 +25,8 @@ final class MainViewController: UIViewController {
             forCellWithReuseIdentifier: TaskCollectionViewCell.identifier
         )
         
+        collectionView.showsVerticalScrollIndicator = false
+        
         return collectionView
     }()
     
