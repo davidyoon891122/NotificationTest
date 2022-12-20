@@ -32,10 +32,7 @@ final class MainViewController: UIViewController {
     
     private var disposeBag = DisposeBag()
     
-    private var tasks: [TaskModel] = [
-        TaskModel(uuid: UUID().uuidString, title: "Sample", pubDate: Date(), isDone: true),
-        TaskModel(uuid: UUID().uuidString, title: "Example", pubDate: Date(), isDone: false)
-    ] {
+    private var tasks: [TaskModel] = [] {
         didSet {
             self.taskCollectionView.reloadData()
         }
@@ -46,11 +43,11 @@ final class MainViewController: UIViewController {
         configureNavigation()
         setupViews()
         bindUI()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        NotificationManager.shared.requestAuthNoti()
     }
 }
 
