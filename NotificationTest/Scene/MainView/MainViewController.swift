@@ -16,14 +16,24 @@ final class MainViewController: UIViewController {
         let layout = UICollectionViewFlowLayout()
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        
         collectionView.dataSource = self
         collectionView.delegate = self
+        
+        collectionView.register(
+            TaskCollectionViewCell.self,
+            forCellWithReuseIdentifier: TaskCollectionViewCell.identifier
+        )
         
         return collectionView
     }()
     
     private var disposeBag = DisposeBag()
     
+    private var tasks: [TaskModel] = [
+        TaskModel(title: "Sample", pubDate: Date(), isDone: true),
+        TaskModel(title: "Example", pubDate: Date(), isDone: false)
+    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,19 +53,37 @@ extension MainViewController: UICollectionViewDataSource {
         _ collectionView: UICollectionView,
         numberOfItemsInSection section: Int
     ) -> Int {
-        return 10
+        return tasks.count
     }
     
     func collectionView(
         _ collectionView: UICollectionView,
         cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
-        return UICollectionViewCell()
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: TaskCollectionViewCell.identifier,
+            for: indexPath
+        ) as? TaskCollectionViewCell else { return UICollectionViewCell() }
+        
+        let task = tasks[indexPath.item]
+
+        cell.setupCell(task: task)
+        
+        return cell
     }
 }
 
 extension MainViewController: UICollectionViewDelegateFlowLayout {
-    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
+        CGSize(
+            width: collectionView.frame.width,
+            height: 50.0
+        )
+    }
 }
 
 
@@ -63,7 +91,8 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
 private extension MainViewController {
     func setupViews() {
         [
-            taskView
+            taskView,
+            taskCollectionView
         ]
             .forEach {
                 view.addSubview($0)
@@ -74,6 +103,13 @@ private extension MainViewController {
             $0.top.equalTo(view.safeAreaLayoutGuide).offset(offset)
             $0.leading.equalToSuperview().offset(offset)
             $0.trailing.equalToSuperview().offset(-offset)
+        }
+        
+        taskCollectionView.snp.makeConstraints {
+            $0.top.equalTo(taskView.snp.bottom).offset(offset)
+            $0.leading.equalToSuperview().offset(offset)
+            $0.trailing.equalToSuperview().offset(-offset)
+            $0.bottom.equalToSuperview().offset(-offset)
         }
     }
     
