@@ -142,7 +142,12 @@ private extension MainViewController {
             .drive(onNext: { [weak self] in
                 guard let self = self else { return }
                 guard let taskTitle = self.taskView.getValueFromTextField() else { return }
-                let task = TaskModel(uuid: UUID().uuidString, title: taskTitle, pubDate: Date(), isDone: false)
+                let task = TaskModel(
+                    uuid: UUID().uuidString,
+                    title: taskTitle,
+                    pubDate: self.taskView.getDateFromPicker(),
+                    isDone: false
+                )
                 self.tasks.append(task)
                 NotificationManager.shared.requestSendNoti(task: task)
             })

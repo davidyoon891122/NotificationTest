@@ -43,6 +43,10 @@ final class TaskView: UIView {
         return datePicker
     }()
     
+    var addButtonTap: ControlEvent<Void> {
+        addButton.rx.tap
+    }
+    
     init() {
         super.init(frame: .zero)
         setupViews()
@@ -56,9 +60,9 @@ final class TaskView: UIView {
         guard let text = taskTextField.text else { return nil }
         return text
     }
-    
-    var addButtonTap: ControlEvent<Void> {
-        addButton.rx.tap
+
+    func getDateFromPicker() -> Date {
+        return datePicker.date
     }
 }
 
