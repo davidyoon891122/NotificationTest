@@ -131,6 +131,15 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
             height: 50.0
         )
     }
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        didSelectItemAt indexPath: IndexPath
+    ) {
+        let task = tasks[indexPath.item]
+        let modifyViewController = ModifyViewController(task: task)
+        self.present(modifyViewController, animated: true)
+    }
 }
 
 
@@ -242,3 +251,14 @@ private extension MainViewController {
         viewModel.inputs.getNotifications()
     }
 }
+
+
+#if canImport(SwiftUI) && DEBUG
+import SwiftUI
+
+struct MainViewController_Preview: PreviewProvider {
+    static var previews: some View {
+        MainViewController().showPreview(.iPhone12Pro)
+    }
+}
+#endif

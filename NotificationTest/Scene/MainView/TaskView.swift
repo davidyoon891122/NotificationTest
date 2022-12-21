@@ -112,3 +112,23 @@ private extension TaskView {
         }
     }
 }
+
+
+#if canImport(SwiftUI) && DEBUG
+import SwiftUI
+
+struct TaskViewPreview: PreviewProvider {
+    static var previews: some View {
+        UIViewPreview {
+            let taskView = TaskView()
+            return taskView
+        }.previewLayout(.sizeThatFits)
+            .frame(minWidth: 100, idealWidth: 200, maxWidth: 300,
+                   minHeight: 100, idealHeight: 200, maxHeight: 300,
+                   alignment: .center
+            )
+        
+    }
+}
+
+#endif

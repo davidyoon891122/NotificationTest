@@ -22,6 +22,11 @@
 		499957532951261200B056A1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499957522951261200B056A1 /* ViewController.swift */; };
 		499957582951261500B056A1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 499957572951261500B056A1 /* Assets.xcassets */; };
 		4999575B2951261500B056A1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 499957592951261500B056A1 /* LaunchScreen.storyboard */; };
+		49BC1C1B295290B4000351C7 /* ModifyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BC1C1A295290B4000351C7 /* ModifyViewController.swift */; };
+		49BC1C1F295290F6000351C7 /* PresentTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BC1C1E295290F6000351C7 /* PresentTopView.swift */; };
+		49BC1C21295291B0000351C7 /* SeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BC1C20295291B0000351C7 /* SeparatorView.swift */; };
+		49BC1C2329529953000351C7 /* Extension+UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BC1C2229529953000351C7 /* Extension+UIViewController.swift */; };
+		49BC1C262952B1CE000351C7 /* TaskInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BC1C252952B1CE000351C7 /* TaskInfoView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +44,11 @@
 		499957572951261500B056A1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4999575A2951261500B056A1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4999575C2951261500B056A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		49BC1C1A295290B4000351C7 /* ModifyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyViewController.swift; sourceTree = "<group>"; };
+		49BC1C1E295290F6000351C7 /* PresentTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentTopView.swift; sourceTree = "<group>"; };
+		49BC1C20295291B0000351C7 /* SeparatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeparatorView.swift; sourceTree = "<group>"; };
+		49BC1C2229529953000351C7 /* Extension+UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIViewController.swift"; sourceTree = "<group>"; };
+		49BC1C252952B1CE000351C7 /* TaskInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskInfoView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,7 +69,11 @@
 			isa = PBXGroup;
 			children = (
 				499957522951261200B056A1 /* ViewController.swift */,
+				49BC1C1E295290F6000351C7 /* PresentTopView.swift */,
 				491F772F29513C6300135A66 /* MainView */,
+				49BC1C242952B19A000351C7 /* ModifyView */,
+				49BC1C20295291B0000351C7 /* SeparatorView.swift */,
+				49BC1C2229529953000351C7 /* Extension+UIViewController.swift */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -121,6 +135,15 @@
 				491F7735295170EA00135A66 /* NotificationManager.swift */,
 			);
 			path = NotificationTest;
+			sourceTree = "<group>";
+		};
+		49BC1C242952B19A000351C7 /* ModifyView */ = {
+			isa = PBXGroup;
+			children = (
+				49BC1C1A295290B4000351C7 /* ModifyViewController.swift */,
+				49BC1C252952B1CE000351C7 /* TaskInfoView.swift */,
+			);
+			path = ModifyView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -202,6 +225,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49BC1C21295291B0000351C7 /* SeparatorView.swift in Sources */,
 				499957532951261200B056A1 /* ViewController.swift in Sources */,
 				4999574F2951261200B056A1 /* AppDelegate.swift in Sources */,
 				499957512951261200B056A1 /* SceneDelegate.swift in Sources */,
@@ -209,8 +233,12 @@
 				491F772729512C7900135A66 /* TaskView.swift in Sources */,
 				491F773A295185FB00135A66 /* MainViewModel.swift in Sources */,
 				491F772529512B0A00135A66 /* MainViewController.swift in Sources */,
+				49BC1C2329529953000351C7 /* Extension+UIViewController.swift in Sources */,
 				491F7738295181B800135A66 /* NotificationDisplayView.swift in Sources */,
+				49BC1C262952B1CE000351C7 /* TaskInfoView.swift in Sources */,
 				491F7736295170EA00135A66 /* NotificationManager.swift in Sources */,
+				49BC1C1B295290B4000351C7 /* ModifyViewController.swift in Sources */,
+				49BC1C1F295290F6000351C7 /* PresentTopView.swift in Sources */,
 				491F77332951455400135A66 /* TaskModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
