@@ -68,11 +68,16 @@ extension MainViewController: TaskCollectionViewCellDelegate {
         tasks[index] = task
 
         if task.isDone {
-            NotificationManager.shared.removePendingNotificationByUUID(uuid: task.uuid) {
+            NotificationManager.shared.removePendingNotificationByUUID(uuid: task.uuid) { [weak self] in
+                guard let self = self else { return }
                 self.viewModel.inputs.getNotifications()
             }
         } else {
-            NotificationManager.shared.requestSendNoti(task: task) { result in
+            NotificationManager.shared.requestSendNoti(task: task) { [weak self] error in
+                guard let self = self else { return }
+                if let error = error {
+                    print(error.localizedDescription)
+                }
                 self.viewModel.inputs.getNotifications()
             }
         }
@@ -80,7 +85,8 @@ extension MainViewController: TaskCollectionViewCellDelegate {
     
     func didTapRemoveButton(index: Int) {
         let removedTask = tasks[index]
-        NotificationManager.shared.removePendingNotificationByUUID(uuid: removedTask.uuid) {
+        NotificationManager.shared.removePendingNotificationByUUID(uuid: removedTask.uuid) { [weak self] in
+            guard let self = self else { return }
             self.viewModel.inputs.getNotifications()
         }
         self.tasks.remove(at: index)

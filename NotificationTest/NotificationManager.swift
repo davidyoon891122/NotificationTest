@@ -21,7 +21,7 @@ final class NotificationManager {
         })
     }
     
-    func requestSendNoti(task: TaskModel, completion: @escaping (Bool) -> Void) {
+    func requestSendNoti(task: TaskModel, completion: @escaping (Error?) -> Void) {
         let notiContent = UNMutableNotificationContent()
         notiContent.title = task.title
         notiContent.body = task.title
@@ -40,9 +40,9 @@ final class NotificationManager {
             userNotiCenter.add(request) { error in
                 if let error = error {
                     print(error.localizedDescription)
-                    completion(false)
+                    completion(error)
                 }
-                completion(true)
+                completion(nil)
             }
             print("Notification has registered")
         } else {
