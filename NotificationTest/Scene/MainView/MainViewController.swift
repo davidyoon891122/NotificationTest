@@ -68,17 +68,22 @@ extension MainViewController: TaskCollectionViewCellDelegate {
         tasks[index] = task
 
         if task.isDone {
-            NotificationManager.shared.removePendingNotificationByUUID(uuid: task.uuid)
+            NotificationManager.shared.removePendingNotificationByUUID(uuid: task.uuid) {
+                self.viewModel.inputs.getNotifications()
+            }
         } else {
-            NotificationManager.shared.requestSendNoti(task: task)
+            NotificationManager.shared.requestSendNoti(task: task) { result in
+                self.viewModel.inputs.getNotifications()
+            }
         }
-        viewModel.inputs.getNotifications()
     }
     
     func didTapRemoveButton(index: Int) {
         let removedTask = tasks[index]
-        NotificationManager.shared.removePendingNotificationByUUID(uuid: removedTask.uuid)
-        tasks.remove(at: index)
+        NotificationManager.shared.removePendingNotificationByUUID(uuid: removedTask.uuid) {
+            self.viewModel.inputs.getNotifications()
+        }
+        self.tasks.remove(at: index)
     }
 }
 
@@ -167,7 +172,15 @@ private extension MainViewController {
             action: #selector(didTapTrashButton)
         )
         
+        let printNotiButton = UIBarButtonItem(
+            image: UIImage(systemName: "arrow.clockwise.circle"),
+            style: .plain,
+            target: self,
+            action: #selector(didTapRefreshButton)
+        )
+        
         navigationItem.rightBarButtonItem = removeButton
+        navigationItem.leftBarButtonItem = printNotiButton
     }
     
     
@@ -188,8 +201,9 @@ private extension MainViewController {
                     isDone: false
                 )
                 self.tasks.append(task)
-                NotificationManager.shared.requestSendNoti(task: task)
-                self.viewModel.inputs.getNotifications()
+                NotificationManager.shared.requestSendNoti(task: task) { _ in
+                    self.viewModel.inputs.getNotifications()
+                }
             })
             .disposed(by: disposeBag)
         
@@ -210,6 +224,15 @@ private extension MainViewController {
     func didTapTrashButton() {
         print("removeAllNotification")
         NotificationManager.shared.removeAllNotification()
+        viewModel.inputs.getNotifications()
+    }
+    
+    @objc
+    func didTapRefreshButton() {
+        print("Display Noti")
+        NotificationManager.shared.getAllNotifications(completion: { notifications in
+            print(notifications)
+        })
         viewModel.inputs.getNotifications()
     }
 }

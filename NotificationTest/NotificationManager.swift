@@ -21,7 +21,7 @@ final class NotificationManager {
         })
     }
     
-    func requestSendNoti(task: TaskModel) {
+    func requestSendNoti(task: TaskModel, completion: @escaping (Bool) -> Void) {
         let notiContent = UNMutableNotificationContent()
         notiContent.title = task.title
         notiContent.body = task.title
@@ -40,7 +40,9 @@ final class NotificationManager {
             userNotiCenter.add(request) { error in
                 if let error = error {
                     print(error.localizedDescription)
+                    completion(false)
                 }
+                completion(true)
             }
             print("Notification has registered")
         } else {
@@ -48,13 +50,13 @@ final class NotificationManager {
         }
     }
     
-    func removePendingNotificationByUUID(uuid: String) {
+    func removePendingNotificationByUUID(uuid: String, completion: @escaping () -> Void ) {
         userNotiCenter.getPendingNotificationRequests(completionHandler: { [weak self] requests in
             guard let self = self else { return }
             for notification in requests where notification.identifier == uuid {
                 self.userNotiCenter.removePendingNotificationRequests(withIdentifiers: [notification.identifier])
             }
-            
+            completion()
         })
     }
     
