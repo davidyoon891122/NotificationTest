@@ -71,11 +71,11 @@ final class TaskCollectionViewCell: UICollectionViewCell {
     
     var index: Int?
     
-    func setupCell(task: TaskModel, index: Int) {
+    func setupCell(task: TaskEntity, index: Int) {
         titleLabel.text = task.title
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd\nHH:mm:ss "
-        pubDateLabel.text = dateFormatter.string(from: task.pubDate)
+        pubDateLabel.text = dateFormatter.string(from: task.alertDate)
         
         if task.isDone {
             doneImageView.image = UIImage(systemName: "checkmark")

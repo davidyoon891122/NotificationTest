@@ -29,11 +29,11 @@ final class NotificationManager {
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        print("requestSendNoti \(dateFormatter.string(from: task.pubDate))")
+        print("requestSendNoti \(dateFormatter.string(from: task.alertDate))")
         
-        let dateCompoenets = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: task.pubDate)
+        let dateCompoenets = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: task.alertDate)
         
-        if task.pubDate > Date() {
+        if task.alertDate > Date() {
             let trigger = UNCalendarNotificationTrigger(dateMatching: dateCompoenets, repeats: false)
             let request = UNNotificationRequest(identifier: task.uuid, content: notiContent, trigger: trigger)
             

@@ -29,7 +29,7 @@ final class ModifyViewController: UIViewController {
         bindUI()
     }
     
-    init(task: TaskModel) {
+    init(task: TaskEntity) {
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -90,14 +90,5 @@ private extension ModifyViewController {
     }
 }
 
-#if canImport(SwiftUI) && DEBUG
-import SwiftUI
 
-struct ModifyViewController_Preview: PreviewProvider {
-    static var previews: some View {
-        let task = TaskModel(uuid: UUID().uuidString, title: "Test", pubDate: Date(), isDone: false)
-        ModifyViewController(task: task).showPreview(.iPhone12Pro)
-    }
-}
-#endif
 

@@ -10,6 +10,6 @@ import Foundation
 struct TaskModel {
     var uuid: String
     var title: String
-    var pubDate: Date
+    var alertDate: Date
     var isDone: Bool
 }

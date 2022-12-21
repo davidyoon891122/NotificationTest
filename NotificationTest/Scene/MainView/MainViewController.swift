@@ -36,7 +36,7 @@ final class MainViewController: UIViewController {
     
     private var disposeBag = DisposeBag()
     
-    private var tasks: [TaskModel] = [] {
+    private var tasks: [TaskEntity] = [] {
         didSet {
             self.taskCollectionView.reloadData()
         }
@@ -52,6 +52,7 @@ final class MainViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        viewModel.inputs.loadSavedTask()
         NotificationManager.shared.requestAuthNoti()
         viewModel.inputs.getNotifications()
     }
@@ -63,33 +64,13 @@ final class MainViewController: UIViewController {
 
 extension MainViewController: TaskCollectionViewCellDelegate {
     func didTapDoneButton(index: Int) {
-        var task = tasks[index]
-        task.isDone = !task.isDone
-        tasks[index] = task
-
-        if task.isDone {
-            NotificationManager.shared.removePendingNotificationByUUID(uuid: task.uuid) { [weak self] in
-                guard let self = self else { return }
-                self.viewModel.inputs.getNotifications()
-            }
-        } else {
-            NotificationManager.shared.requestSendNoti(task: task) { [weak self] error in
-                guard let self = self else { return }
-                if let error = error {
-                    print(error.localizedDescription)
-                }
-                self.viewModel.inputs.getNotifications()
-            }
-        }
+        let task = tasks[index]
+        viewModel.inputs.requestUpdateIsDone(task: task)
     }
     
     func didTapRemoveButton(index: Int) {
-        let removedTask = tasks[index]
-        NotificationManager.shared.removePendingNotificationByUUID(uuid: removedTask.uuid) { [weak self] in
-            guard let self = self else { return }
-            self.viewModel.inputs.getNotifications()
-        }
-        self.tasks.remove(at: index)
+        let task = tasks[index]
+        viewModel.inputs.requestRemoveTask(task: task)
     }
 }
 
@@ -212,10 +193,10 @@ private extension MainViewController {
                 let task = TaskModel(
                     uuid: UUID().uuidString,
                     title: taskTitle,
-                    pubDate: self.taskView.getDateFromPicker(),
+                    alertDate: self.taskView.getDateFromPicker(),
                     isDone: false
                 )
-                self.tasks.append(task)
+                self.viewModel.inputs.saveTask(task: task)
                 NotificationManager.shared.requestSendNoti(task: task) { _ in
                     self.viewModel.inputs.getNotifications()
                 }
@@ -231,6 +212,19 @@ private extension MainViewController {
                 DispatchQueue.main.async {
                     self.displayView.setNotiCountToLabel(count: notifications.count)
                 }
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.outputs.tasksPublishSubject
+            .subscribe(onNext: { [weak self] tasks in
+                guard let self = self else { return }
+                self.tasks = tasks
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.outputs.loadErrorPublushSubject
+            .subscribe(onNext: { [weak self] message in
+                print("error message: \(message)")
             })
             .disposed(by: disposeBag)
     }
