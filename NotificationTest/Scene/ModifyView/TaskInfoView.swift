@@ -23,6 +23,7 @@ final class TaskInfoView: UIView {
         label.textColor = .label
         label.text = "2022.11.22 23:58:00"
         label.font = .systemFont(ofSize: 20.0, weight: .bold)
+        label.numberOfLines = 2
         
         return label
     }()
@@ -34,6 +35,14 @@ final class TaskInfoView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setTitleText(title: String) {
+        titleLabel.text = title
+    }
+    
+    func setDateText(date: String) {
+        dateLabel.text = date
     }
 }
 

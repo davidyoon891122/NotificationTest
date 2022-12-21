@@ -31,6 +31,12 @@ final class ModifyViewController: UIViewController {
     
     init(task: TaskEntity) {
         super.init(nibName: nil, bundle: nil)
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd\nHH:mm:ss"
+        taskInfoView.setTitleText(title: task.title)
+        taskInfoView.setDateText(date: dateFormatter.string(from: task.alertDate))
+        
     }
     
     required init?(coder: NSCoder) {
@@ -40,6 +46,7 @@ final class ModifyViewController: UIViewController {
 
 private extension ModifyViewController {
     func setupViews() {
+        view.backgroundColor = .systemBackground
         [
             presentTopView,
             taskInfoView,
