@@ -58,9 +58,10 @@ private extension PresentTopView {
             .forEach {
                 addSubview($0)
             }
+        let topOffset: CGFloat = 8.0
         let offset: CGFloat = 16.0
         closeButton.snp.makeConstraints {
-            $0.top.equalToSuperview()
+            $0.top.equalToSuperview().offset(topOffset)
             $0.leading.equalToSuperview().offset(offset)
         }
         
@@ -70,7 +71,7 @@ private extension PresentTopView {
         }
         
         separatorView.snp.makeConstraints {
-            $0.top.equalTo(closeButton.snp.bottom).offset(offset)
+            $0.top.equalTo(closeButton.snp.bottom).offset(topOffset)
             $0.leading.equalToSuperview()
             $0.trailing.equalToSuperview()
             $0.bottom.equalToSuperview()
@@ -89,6 +90,7 @@ struct PresentTopViewPreview: PreviewProvider {
             let presentTopView = PresentTopView()
             return presentTopView
         }.previewLayout(.sizeThatFits)
+            .frame(minWidth: 0, idealWidth: UIScreen.main.bounds.width, maxWidth: UIScreen.main.bounds.width, minHeight: 50.0, idealHeight: 50.0, maxHeight: 50.0)
     }
 }
 

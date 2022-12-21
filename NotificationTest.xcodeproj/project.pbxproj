@@ -129,10 +129,10 @@
 				491F772E29513C5000135A66 /* Delegate */,
 				491F772D29513C4100135A66 /* Scene */,
 				491F773429515ED400135A66 /* Model */,
+				49BC1C272952C137000351C7 /* Managers */,
 				499957572951261500B056A1 /* Assets.xcassets */,
 				499957592951261500B056A1 /* LaunchScreen.storyboard */,
 				4999575C2951261500B056A1 /* Info.plist */,
-				491F7735295170EA00135A66 /* NotificationManager.swift */,
 			);
 			path = NotificationTest;
 			sourceTree = "<group>";
@@ -144,6 +144,14 @@
 				49BC1C252952B1CE000351C7 /* TaskInfoView.swift */,
 			);
 			path = ModifyView;
+			sourceTree = "<group>";
+		};
+		49BC1C272952C137000351C7 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				491F7735295170EA00135A66 /* NotificationManager.swift */,
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
